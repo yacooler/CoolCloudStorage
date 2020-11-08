@@ -21,7 +21,7 @@
         <property name="hibernate.connection.characterEncoding">utf8</property>
         <property name="hibernate.connection.useUnicode">true</property>
 
-        <mapping class="database.entity.User"/>
+        <mapping class="server.database.entity.User"/>
 
 
     </session-factory>

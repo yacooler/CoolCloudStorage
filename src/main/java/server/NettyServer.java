@@ -7,10 +7,18 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
+import server.nettyhandlers.InboundCommandHandler;
+import server.users.UserPool;
+
 
 public class NettyServer {
+
+    //Пул подключенных пользователей
+    private UserPool userPool = new UserPool();
+
     public NettyServer() {
         EventLoopGroup auth = new NioEventLoopGroup(1);
         EventLoopGroup worker = new NioEventLoopGroup();
@@ -22,11 +30,13 @@ public class NettyServer {
                         @Override
                         protected void initChannel(Channel channel) throws Exception {
                             channel.pipeline().addLast(
-                                    new StringDecoder(),
-                                    new StringEncoder()
+                                    new ObjectEncoder(),
+                                    new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
+                                    new InboundCommandHandler(userPool)
                             );
                         }
                     });
+
             ChannelFuture future = bootstrap.bind(8189).sync();
             System.out.println("Server started");
             future.channel().closeFuture().sync(); // block
