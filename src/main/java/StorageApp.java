@@ -1,3 +1,4 @@
+import common.utils.DataUtils;
 import server.database.HibernateSessionFactory;
 import server.database.entity.User;
 import org.hibernate.Session;
@@ -10,6 +11,7 @@ import java.util.List;
 public class StorageApp {
     public static void main(String[] args) {
         System.out.println("Welcome to CoolCloudStorage!");
+
         startServer();
 
     }

@@ -11,7 +11,7 @@ import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import server.nettyhandlers.InboundCommandHandler;
-import server.users.UserPool;
+import server.cloudusers.UserPool;
 
 
 public class NettyServer {
