@@ -1,7 +1,8 @@
-package server.users;
+package server.cloudusers;
 
 
 import io.netty.channel.Channel;
+import server.database.entity.User;
 import server.database.services.UserService;
 
 import java.util.HashMap;
@@ -14,17 +15,17 @@ import java.util.Map;
  */
 public class UserPool {
     //Хэшмапа соединений
-    private Map<Channel, ServerUser> users = new HashMap<>();
+    private Map<Channel, User> users = new HashMap<>();
 
-    public Map<Channel, ServerUser> getUsers() {
+    public Map<Channel, User> getUsers() {
         return users;
     }
 
-    private UserService userService = new UserService();
+    private UserService Service = new UserService();
 
     //При коннекте
-    public void addUser(Channel channel, ServerUser serverUser){
-        users.put(channel, serverUser);
+    public void addUser(Channel channel, User user){
+        users.put(channel, user);
     }
 
     //При дисконнекте
@@ -33,14 +34,12 @@ public class UserPool {
     }
 
     //Получение пользователя из мапы
-    public ServerUser getUser(Channel channel){
+    public User getUser(Channel channel){
         return users.get(channel);
     }
 
 
-
-
     public UserService getUserService() {
-        return userService;
+        return Service;
     }
 }

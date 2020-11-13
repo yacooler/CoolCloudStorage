@@ -1,4 +1,4 @@
-package server.users;
+package server.cloudusers;
 
 public enum UserStatement {
     NO_STATEMENT,

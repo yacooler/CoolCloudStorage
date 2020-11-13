@@ -1,6 +1,9 @@
 package TestClient;
 
-import commands.*;
+import common.frames.BaseFrame;
+import common.frames.CommandLOG;
+import common.frames.CommandNEW;
+import common.frames.CommandPAS;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -9,7 +12,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
-import utils.AuthUtils;
+import common.utils.AuthUtils;
 
 import java.util.Scanner;
 
@@ -37,8 +40,8 @@ public class TestClient2 {
 
                                 @Override
                                 public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                                    BaseCommand command = (BaseCommand) msg;
-                                    BaseCommand response;
+                                    BaseFrame command = (BaseFrame) msg;
+                                    BaseFrame response;
                                     Scanner scanner = new Scanner(System.in);
 
                                     if (msg instanceof CommandLOG){
