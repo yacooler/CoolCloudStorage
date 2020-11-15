@@ -16,7 +16,9 @@ public class HibernateSessionFactory {
                 .configure() // configures settings from hibernate.cfg.xml
                 .build();
         try {
-            sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+            var metaDataSource = new MetadataSources( registry );
+            var metaDataBuild = metaDataSource.buildMetadata();
+            sessionFactory = metaDataBuild.buildSessionFactory();
         }
         catch (Exception e) {
             // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
