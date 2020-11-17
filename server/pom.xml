@@ -9,7 +9,6 @@
             <groupId>ru.vyazankin</groupId>
             <artifactId>cloudcommon</artifactId>
             <version>1.0</version>
-            <scope>source</scope>
         </dependency>
     </dependencies>
 
@@ -21,6 +20,7 @@
     <artifactId>cloudserver</artifactId>
 
     <build>
+        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
