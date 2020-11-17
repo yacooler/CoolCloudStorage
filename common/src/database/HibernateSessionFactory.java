@@ -25,7 +25,7 @@ public class HibernateSessionFactory {
             // so destroy it manually.
             StandardServiceRegistryBuilder.destroy( registry );
 
-            throw new ExceptionInInitializerError("Не стартует Hibernate!" + e);
+            throw new RuntimeException("Не стартует Hibernate!", e);
         }
         return sessionFactory;
     }

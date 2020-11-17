@@ -6,4 +6,5 @@ module client {
     requires common;
 
     opens fx;
+
 }

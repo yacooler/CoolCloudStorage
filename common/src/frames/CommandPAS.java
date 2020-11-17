@@ -5,6 +5,9 @@ import database.entity.User;
 import io.netty.channel.ChannelHandlerContext;
 
 public class CommandPAS extends BaseCommandFrame {
+
+    public static final String FAIL_WHILE_AUTH = "Логин или пароль некорректны";
+
     public CommandPAS() {
         super();
     }
@@ -31,6 +34,6 @@ public class CommandPAS extends BaseCommandFrame {
             return new CommandSCC();
         }
         //иначе запрашиваем логин и пароль заново
-        return new CommandLOG("fail while authorization");
+        return new CommandLOG(FAIL_WHILE_AUTH);
     }
 }

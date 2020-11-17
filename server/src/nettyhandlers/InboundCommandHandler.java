@@ -10,6 +10,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class InboundCommandHandler extends ChannelInboundHandlerAdapter {
 
+    //todo пофиксить баг с крашащимся потоком, если передали отсутствующее имя пользователя
     private UserPool userPool;
 
 
