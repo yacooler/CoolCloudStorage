@@ -4,10 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <artifactId>CoolCloudStorage</artifactId>
+        <groupId>ru.vyazankin</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>cloudclient</artifactId>
 
 
     <dependencies>
-
         <dependency>
             <groupId>ru.vyazankin</groupId>
             <artifactId>cloudcommon</artifactId>
@@ -26,15 +32,15 @@
             <artifactId>javafx-fxml</artifactId>
             <version>14.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>14.0.1</version>
+        </dependency>
+
 
     </dependencies>
 
-    <parent>
-        <artifactId>CoolCloudStorage</artifactId>
-        <groupId>ru.vyazankin</groupId>
-        <version>1.0</version>
-    </parent>
-    <artifactId>cloudclient</artifactId>
 
 
     <build>

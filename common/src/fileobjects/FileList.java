@@ -10,19 +10,19 @@ public class FileList implements Serializable {
 
     private static final long serialVersionUID = -2534626971804290540L;
 
-    private List<FileParameters> files = new ArrayList<>();
+    private List<FileInformation> files = new ArrayList<>();
 
-    public void add(FileParameters fileParameters){
-        files.add(fileParameters);
+    public void add(FileInformation fileInformation){
+        files.add(fileInformation);
     }
 
-    public List<FileParameters> getFiles(){
+    public List<FileInformation> getFiles(){
         return files;
     }
 
-    public Optional<FileParameters> getByFilename(String filename){
-        FileParameters found = null;
-        for (FileParameters fileParam: files) {
+    public Optional<FileInformation> getByFilename(String filename){
+        FileInformation found = null;
+        for (FileInformation fileParam: files) {
             if (fileParam.getName().equalsIgnoreCase(filename)) {
                 found = fileParam;
                 break;
@@ -30,5 +30,10 @@ public class FileList implements Serializable {
         }
         return Optional.ofNullable(found);
     }
+
+    public void addAll(List<FileInformation> collect) {
+        files.addAll(collect);
+    }
+
 
 }

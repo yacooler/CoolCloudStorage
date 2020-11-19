@@ -1,9 +1,9 @@
 package nettyclient;
 
 import frames.BaseFrame;
-import frames.CommandLOG;
-import frames.CommandPAS;
-import frames.CommandSCC;
+import frames.CommandCSLogin;
+import frames.CommandCSPass;
+import frames.CommandSuccess;
 import io.netty.channel.ChannelHandlerContext;
 import javafx.util.Callback;
 import utils.AuthUtils;
@@ -23,7 +23,7 @@ public class AuthorizationLoop implements Callback<BaseFrame, BaseFrame> {
         //Запускаем цикл логина
         if (readyToAuth){
             //Запускаем цикл с логином
-            channelHandlerContext.writeAndFlush(call(new CommandLOG(login)));
+            channelHandlerContext.writeAndFlush(call(new CommandCSLogin(login)));
         }
     }
 
@@ -54,9 +54,9 @@ public class AuthorizationLoop implements Callback<BaseFrame, BaseFrame> {
         if (!readyToAuth) return null;
 
         //Разбираем пакеты
-        if (baseFrame instanceof CommandLOG){
-            CommandLOG commandLOG = (CommandLOG) baseFrame;
-            if (commandLOG.getContentAsString().equalsIgnoreCase(CommandPAS.FAIL_WHILE_AUTH)){
+        if (baseFrame instanceof CommandCSLogin){
+            CommandCSLogin commandCSLogin = (CommandCSLogin) baseFrame;
+            if (commandCSLogin.getContentAsString().equalsIgnoreCase(CommandCSPass.FAIL_WHILE_AUTH)){
                 //Не удалось приконнектиться с предыдущим логином и паролем - сбрасываем признак готовности к авторизации
                 //и не отправляем на сервер логин до повторной активации
                 readyToAuth = false;
@@ -64,12 +64,12 @@ public class AuthorizationLoop implements Callback<BaseFrame, BaseFrame> {
                 return null;
             }
             System.out.println("Отправляем на сервер логин");
-            return commandLOG;
-        } else if(baseFrame instanceof CommandPAS){
-            CommandPAS commandPAS = new CommandPAS(AuthUtils.md5(login + password).getBytes());
+            return commandCSLogin;
+        } else if(baseFrame instanceof CommandCSPass){
+            CommandCSPass commandCSPass = new CommandCSPass(AuthUtils.md5(login + password).getBytes());
             System.out.println("Отправляем на сервер пароль");
-            return commandPAS;
-        } else if(baseFrame instanceof CommandSCC){
+            return commandCSPass;
+        } else if(baseFrame instanceof CommandSuccess){
             //Если логин и пароль совпали
             this.authorized = true;
             readyToAuth = false;

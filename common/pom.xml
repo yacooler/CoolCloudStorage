@@ -11,8 +11,6 @@
     </parent>
 
     <artifactId>cloudcommon</artifactId>
-    <packaging>jar</packaging>
-    <version>1.0</version>
 
     <build>
         <sourceDirectory>src</sourceDirectory>
@@ -42,6 +40,8 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.23.Final</version>
         </dependency>
+
+
     </dependencies>
 
 </project>

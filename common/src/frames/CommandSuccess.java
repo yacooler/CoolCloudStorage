@@ -1,23 +1,21 @@
 package frames;
 
 
-import cloudusers.UserPool;
-import database.entity.User;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
  * Success. Команда отправляется в случае, если предыдущая операция завершена успешно
  */
-public class CommandSCC extends BaseCommandFrame {
-    public CommandSCC() {
+public class CommandSuccess extends BaseCommandFrame {
+    public CommandSuccess() {
         super();
     }
 
-    public CommandSCC(byte[] content) {
+    public CommandSuccess(byte[] content) {
         super(content);
     }
 
-    public CommandSCC(String content) {
+    public CommandSuccess(String content) {
         super(content);
     }
 
@@ -27,7 +25,7 @@ public class CommandSCC extends BaseCommandFrame {
     }
 
     @Override
-    public BaseFrame serverProcessing(ChannelHandlerContext ctx, UserPool userPool, User user){
+    public BaseFrame processing(ChannelHandlerContext ctx){
         return null;
     }
 }

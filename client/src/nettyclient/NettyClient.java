@@ -3,7 +3,7 @@ package nettyclient;
 
 import fileobjects.FileList;
 import frames.BaseFrame;
-import frames.CommandNEW;
+import frames.CommandCSNewClient;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -16,18 +16,20 @@ import io.netty.handler.codec.UnsupportedMessageTypeException;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import javafx.concurrent.Task;
 import javafx.util.Callback;
 
 import java.io.OutputStream;
 
 
-public class NettyClient implements Runnable{
+public class NettyClient extends Task<Void> {
 
     private final String inetHost;
     private final int inetPort;
     private Callback<BaseFrame, BaseFrame> receivedMessageHandler;
 
 
+    //todo platform.runlater или task вместо runnable
     private FileList fileList;
     private OutputStream outputStream;
 
@@ -72,7 +74,7 @@ public class NettyClient implements Runnable{
                                     currentHandlerContext = ctx;
                                     authorizationLoop = new AuthorizationLoop(currentHandlerContext);
                                     System.out.println(authorizationLoop);
-                                    ctx.writeAndFlush(new CommandNEW());
+                                    ctx.writeAndFlush(new CommandCSNewClient());
                                     System.out.println(Thread.currentThread());
                                 }
 
@@ -111,12 +113,13 @@ public class NettyClient implements Runnable{
 
 
     @Override
-    public void run() {
+    protected Void call() throws Exception {
         try {
             mainLoop();
         } catch (Exception e) {
             throw new RuntimeException("Ошибка при работе клиентского потока", e);
         }
+        return null;
     }
 
     //Передаем логин и пароль, назначаем объект слушателем сообщений, запускаем
@@ -124,6 +127,7 @@ public class NettyClient implements Runnable{
         authorizationLoop.setLogPass(login, password);
         setReceivedMessageHandler(authorizationLoop);
         authorizationLoop.setReadyToAuth(true);
+
 
         System.out.println("Запустили авторизацию из потока " + Thread.currentThread());
         while (authorizationLoop.isReadyToAuth()){

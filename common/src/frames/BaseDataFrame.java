@@ -1,7 +1,7 @@
 package frames;
 
 
-import fileobjects.FileParameters;
+import fileobjects.FileInformation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +17,7 @@ public class BaseDataFrame extends BaseFrame {
     private int dataOffset = 0;
 
     @Getter @Setter
-    private FileParameters fileParameters;
+    private FileInformation fileInformation;
 
     @Getter @Setter
     private boolean initialized;

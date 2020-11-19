@@ -1,7 +1,7 @@
 package nettyclient;
 
 import frames.BaseFrame;
-import frames.CommandNEW;
+import frames.CommandCSNewClient;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.UnsupportedMessageTypeException;
@@ -33,7 +33,7 @@ public class InboundClientCommandAdapter extends ChannelInboundHandlerAdapter {
         System.out.println("Клиент подключился к серверу");
         currentHandlerContext = ctx;
         System.out.println(authorizationLoop);
-        ctx.writeAndFlush(new CommandNEW());
+        ctx.writeAndFlush(new CommandCSNewClient());
         System.out.println(Thread.currentThread());
     }
 
@@ -64,14 +64,14 @@ public class InboundClientCommandAdapter extends ChannelInboundHandlerAdapter {
 
 
 
-//                                    if (msg instanceof CommandLOG){
+//                                    if (msg instanceof CommandCSLogin){
 //                                        //Если мессейдж - логин, запрашиваем его у пользователя в каком-то месте
 //                                        System.out.println("введите логин");
 //                                        //login = scanner.next();
 //                                        command.setContent(login.getBytes());
 //                                        System.out.println(new String(command.getContent()));
 //                                        ctx.writeAndFlush(command);
-//                                    } else if(msg instanceof CommandPAS){
+//                                    } else if(msg instanceof CommandCSPass){
 //                                        //Если мессейдж - пароль, запрашиваем его у пользователя
 //                                        System.out.println("Введите пароль");
 //                                        //password = scanner.next();
@@ -79,22 +79,22 @@ public class InboundClientCommandAdapter extends ChannelInboundHandlerAdapter {
 //                                        System.out.println(pass);
 //                                        command.setContent(AuthUtils.md5(pass).getBytes());
 //                                        ctx.writeAndFlush(command);
-//                                    } else if(msg instanceof CommandSCC){
+//                                    } else if(msg instanceof CommandSuccess){
 //                                        System.out.println("Запрос списка файлов корневой директории");
-//                                        ctx.writeAndFlush(new CommandDIR());
-//                                    } else if(msg instanceof CommandDIR){
-//                                        CommandDIR commandDIR = (CommandDIR) msg;
+//                                        ctx.writeAndFlush(new CommandCSDir());
+//                                    } else if(msg instanceof CommandCSDir){
+//                                        CommandCSDir commandDIR = (CommandCSDir) msg;
 //                                        fileList = commandDIR.getFileList();
 //                                        for (FileParameters fileParameters : fileList.getFiles()) {
 //                                            System.out.println(fileParameters);
 //                                        }
 //                                        ctx.writeAndFlush(new CommandWAI());
 //
-//                                    } else if(msg instanceof DataFrameTRN) {
+//                                    } else if(msg instanceof DataFrame) {
 //                                        //Получение файла
-//                                        DataFrameTRN dataFrameTRN = (DataFrameTRN) msg;
+//                                        DataFrame dataFrameTRN = (DataFrame) msg;
 //                                        dataFrameTRN = dataFrameTRN;
-//                                        //System.out.println("DataFrameTRN");
+//                                        //System.out.println("DataFrame");
 //                                        outputStream.write(
 //                                                dataFrameTRN.getContent(),
 //                                                0,
@@ -109,7 +109,7 @@ public class InboundClientCommandAdapter extends ChannelInboundHandlerAdapter {
 //                                            ctx.writeAndFlush(new CommandWAI());
 //                                        } else {
 //                                            //Иначе запрашиваем следующий кадр
-//                                            CommandGET commandGET = new CommandGET(dataFrameTRN.getCurrentFrame() + 1);
+//                                            CommandCSGetFile commandGET = new CommandCSGetFile(dataFrameTRN.getCurrentFrame() + 1);
 //                                            //параметры файла
 //                                            commandGET.setFileParameters(dataFrameTRN.getFileParameters());
 //
@@ -132,7 +132,7 @@ public class InboundClientCommandAdapter extends ChannelInboundHandlerAdapter {
 //                                            outputStream = Files.newOutputStream(Path.of("client/" + fileParam.getName()));
 //                                        }
 //                                        //С первого кадра
-//                                        CommandGET commandGET = new CommandGET(0);
+//                                        CommandCSGetFile commandGET = new CommandCSGetFile(0);
 //                                        //Файл
 //                                        commandGET.setFileParameters(fileParam);
 //                                        //Передаем параметры файла

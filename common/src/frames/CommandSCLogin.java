@@ -2,27 +2,23 @@ package frames;
 
 import io.netty.channel.ChannelHandlerContext;
 
-public class CommandFAI extends BaseCommandFrame {
-    public CommandFAI() {
-        super();
-    }
+public class CommandSCLogin extends BaseCommandFrame {
 
-    public CommandFAI(byte[] content) {
-        super(content);
-    }
-
-    public CommandFAI(String content) {
+    public CommandSCLogin(String content) {
         super(content);
     }
 
     @Override
     protected void afterConstruct() {
-        semantic = "FAI".getBytes();
+        semantic = "NEW".getBytes();
     }
 
 
     @Override
     public BaseFrame processing(ChannelHandlerContext ctx){
+        System.out.println("response login from client");
         return null;
     }
+
 }
+

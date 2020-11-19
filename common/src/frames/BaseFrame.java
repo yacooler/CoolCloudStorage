@@ -1,8 +1,5 @@
 package frames;
 
-import cloudusers.UserPool;
-import database.entity.User;
-import io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -62,10 +59,5 @@ public abstract class BaseFrame implements Serializable {
 
     protected void afterConstruct(){}
 
-    /**
-     * Функция обработки пришедших в команду данных
-     */
-    public BaseFrame serverProcessing(ChannelHandlerContext ctx, UserPool userPool, User user){return null;}
 
-    public BaseFrame clientProcessing(ChannelHandlerContext ctx){return null;}
 }
